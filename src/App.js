@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   handleStartClick = () => {
-    const _this = this;
     this.interval = setInterval(() => {
       const newTime = this.runStopwatch();
       this.setState({
@@ -37,10 +36,8 @@ class App extends Component {
   };
 
   handleStopClick = () => {
-    const time = this.stopStopwatch();
-    this.setState({
-      time: time
-    });
+    clearInterval(this.interval);
+    
   };
 
   render(){
