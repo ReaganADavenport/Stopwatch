@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+//import libraries
+import React, {Component} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+//import components
+import StartButton from './startButton';
+import StopButton from './stopButton';
+
+//import CSS
+import './App.css';
+import 'bulma/css/bulma.css';
+
+class App extends Component {
+  state = {
+    time: 0
+  };
+
+  interval = 0;
+
+  runStopwatch = () => {
+    const newtime = this.state.time + 1;
+    return newtime;
+  };
+
+  stopStopwatch = () => {
+    const time = this.state.time;
+    return time;
+  }
+
+  handleStartClick = () => {
+    const _this = this;
+    this.interval = setInterval(() => {
+      const newTime = this.runStopwatch();
+      this.setState({
+        time: newTime
+      });
+    }, 1000);
+  };
+
+  handleStopClick = () => {
+    const time = this.stopStopwatch();
+    this.setState({
+      time: time
+    });
+  };
+
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+          <StartButton time={this.state.time} startCallback={this.handleStartClick}>Start</StartButton>
+          <StopButton time={this.state.time} stopCallback={this.handleStopClick}>Stop</StopButton>
+        </header>
+      </div>
+    );
+  };
+};
 
 export default App;
